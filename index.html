@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Arcade - Cute Minigames</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="background-pattern"></div>
+  <div class="app">
+    <header class="top-bar">
+      <div>
+        <h1>Happy Arcade</h1>
+        <p class="subtitle">Pilih minigame lucu dan main sepuasnya 🎮</p>
+      </div>
+      <div class="controls">
+        <button id="back-home-btn" aria-label="Kembali ke menu utama">Menu</button>
+        <button id="restart-btn" aria-label="Restart game">Restart</button>
+      </div>
+    </header>
+
+    <main>
+      <!-- DASHBOARD -->
+      <section id="dashboard" class="dashboard" aria-label="Pilih minigame">
+        <article class="dash-card">
+          <div class="dash-card-top">
+            <div class="dash-icon dash-icon-memory" aria-hidden="true">🐾</div>
+            <div>
+              <h2>Memory Match</h2>
+              <p>Cari pasangan hewan yang sama. Latih fokus dan ingatanmu!</p>
+            </div>
+          </div>
+          <button class="dash-play-btn" data-game="memory">Mainkan</button>
+        </article>
+        <article class="dash-card">
+          <div class="dash-card-top">
+            <div class="dash-icon dash-icon-reaction" aria-hidden="true">⚡</div>
+            <div>
+              <h2>Reaction Tap</h2>
+              <p>Tap secepat mungkin saat lingkaran berubah hijau. Kejar rekor!</p>
+            </div>
+          </div>
+          <button class="dash-play-btn" data-game="reaction">Mainkan</button>
+        </article>
+        <article class="dash-card">
+          <div class="dash-card-top">
+            <div class="dash-icon dash-icon-mole" aria-hidden="true">🐹</div>
+            <div>
+              <h2>Whack-a-Critter</h2>
+              <p>Klik hewan yang muncul di grid sebelum menghilang. Kumpulkan skor!</p>
+            </div>
+          </div>
+          <button class="dash-play-btn" data-game="mole">Mainkan</button>
+        </article>
+        <article class="dash-card">
+          <div class="dash-card-top">
+            <div class="dash-icon dash-icon-numbers" aria-hidden="true">🔢</div>
+            <div>
+              <h2>Number Rush</h2>
+              <p>Tap angka 1–16 secara berurutan secepat mungkin. Bisa berapa detik?</p>
+            </div>
+          </div>
+          <button class="dash-play-btn" data-game="numbers">Mainkan</button>
+        </article>
+      </section>
+
+      <!-- MEMORY MATCH -->
+      <section id="memory-view" class="game-view hidden" aria-label="Memory Match">
+        <div class="game-header">
+          <h2>Memory Match</h2>
+          <p class="game-desc">Balik kartu dan temukan pasangan hewan yang sama.</p>
+        </div>
+
+        <section class="stats">
+          <div class="stat">
+            <span class="label">Flips</span>
+            <span id="flip-count" aria-live="polite">0</span>
+          </div>
+          <div class="stat">
+            <span class="label">Matches</span>
+            <span id="match-count" aria-live="polite">0 / 8</span>
+          </div>
+        </section>
+
+        <section class="grid" id="game-grid" aria-label="Memory cards"></section>
+      </section>
+
+      <!-- REACTION TAP -->
+      <section id="reaction-view" class="game-view hidden" aria-label="Reaction Tap">
+        <div class="game-header">
+          <h2>Reaction Tap</h2>
+          <p class="game-desc">Tap lingkaran secepat mungkin saat berubah hijau.</p>
+        </div>
+        <div class="reaction-wrapper">
+          <button id="reaction-circle" class="reaction-circle" aria-label="Area reaction tap">
+            <span id="reaction-status">Tekan "Mulai", lalu tunggu...</span>
+          </button>
+          <div class="reaction-stats">
+            <div class="stat">
+              <span class="label">Waktu terakhir</span>
+              <span id="reaction-last">-</span>
+            </div>
+            <div class="stat">
+              <span class="label">Rekor terbaik</span>
+              <span id="reaction-best">-</span>
+            </div>
+          </div>
+          <button id="reaction-start-btn">Mulai</button>
+        </div>
+      </section>
+
+      <!-- WHACK-A-CRITTER -->
+      <section id="mole-view" class="game-view hidden" aria-label="Whack-a-Critter">
+        <div class="game-header">
+          <h2>Whack-a-Critter</h2>
+          <p class="game-desc">Klik hewan yang muncul di salah satu kotak sebelum hilang.</p>
+        </div>
+        <div class="mole-wrapper">
+          <div class="mole-stats">
+            <div class="stat">
+              <span class="label">Skor</span>
+              <span id="mole-score">0</span>
+            </div>
+            <div class="stat">
+              <span class="label">Sisa waktu</span>
+              <span id="mole-time">30s</span>
+            </div>
+          </div>
+          <div class="mole-grid" id="mole-grid">
+            <button class="mole-cell"></button>
+            <button class="mole-cell"></button>
+            <button class="mole-cell"></button>
+            <button class="mole-cell"></button>
+            <button class="mole-cell"></button>
+            <button class="mole-cell"></button>
+            <button class="mole-cell"></button>
+            <button class="mole-cell"></button>
+            <button class="mole-cell"></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- NUMBER RUSH -->
+      <section id="numbers-view" class="game-view hidden" aria-label="Number Rush">
+        <div class="game-header">
+          <h2>Number Rush</h2>
+          <p class="game-desc">Tap angka 1–16 secara berurutan secepat mungkin.</p>
+        </div>
+        <div class="numbers-wrapper">
+          <div class="numbers-stats">
+            <div class="stat">
+              <span class="label">Target berikut</span>
+              <span id="numbers-target">1</span>
+            </div>
+            <div class="stat">
+              <span class="label">Waktu</span>
+              <span id="numbers-time">0.00s</span>
+            </div>
+          </div>
+          <div class="numbers-grid" id="numbers-grid"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Overlay kemenangan -->
+  <div class="win-overlay" id="win-overlay" aria-hidden="true">
+    <div class="win-card">
+      <h2 id="win-title">Yeay! Kamu Menang 🎉</h2>
+      <p id="win-message">Permainan selesai dengan hasil yang keren!</p>
+      <button id="play-again-btn">Main lagi</button>
+    </div>
+  </div>
+
+  <audio id="success-sound" preload="auto"></audio>
+  <div id="confetti-container" aria-hidden="true"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
